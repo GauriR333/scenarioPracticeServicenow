@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>incident</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>ShowIfAssigntoAndCallerAreSame</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+    // Get the caller's manager
+    var callerManager = '';
+    if (current.caller_id) {
+        var caller = new GlideRecord('sys_user');
+        if (caller.get(current.caller_id)) {
+            callerManager = caller.manager;
+        }
+    }
+
+    // Get the assigned to user's manager
+    var assignedToManager = '';
+    if (current.assigned_to) {
+        var assignedTo = new GlideRecord('sys_user');
+        if (assignedTo.get(current.assigned_to)) {
+            assignedToManager = assignedTo.manager;
+        }
+    }
+
+    // Compare the managers and show alert if they are the same
+    if (callerManager && assignedToManager && callerManager == assignedToManager) {
+        gs.addInfoMessage("Manager are same for Caller and Assigned to User");
+    }
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-11 06:54:47</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>f50a0f50c372021099e3d41d0501316c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>ShowIfAssigntoAndCallerAreSame</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="ScenarioAssignmentPractice" source="x_1388630_scenario">fd51cf94c332021099e3d41d05013103</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="ScenarioAssignmentPractice">fd51cf94c332021099e3d41d05013103</sys_scope>
+        <sys_update_name>sys_script_f50a0f50c372021099e3d41d0501316c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-11 07:00:52</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=f50a0f50c372021099e3d41d0501316c"/>
+</record_update>
